@@ -7,7 +7,9 @@
   "main": "./lib/index",
   "module": "./es/index",
   "types": "./types",
-  "scripts": {},
+  "scripts": {
+    "dev": "NODE_ENV=dev start-storybook -p 2046 -c .storybook"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
     "react": "^16.13.1",
@@ -25,7 +27,8 @@
     "css-loader": "^3.5.3",
     "eslint": "^7.2.0",
     "node-sass": "^4.14.1",
-    "scss-loader": "^0.0.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.5"
