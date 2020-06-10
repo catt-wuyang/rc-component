@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { withInfo } from "@storybook/addon-info";
+import { action } from "@storybook/addon-actions";
 import ToggleNavigation from "../packages/toggleNavigation";
 
 const TOGGLES = [
@@ -17,6 +17,16 @@ const TOGGLES = [
     text: "音乐",
   },
 ];
-storiesOf("ToggleNavigation", module).add("default", () => {
-  return <ToggleNavigation toggles={TOGGLES} />;
-});
+
+const DEFAULT_TOGGLE = {
+  value: "movie",
+  text: "电影",
+};
+
+storiesOf("ToggleNavigation", module)
+  .add("default", () => {
+    return <ToggleNavigation toggles={TOGGLES} onChange={action("onChange")} />;
+  })
+  .add("defaultValue", () => {
+    return <ToggleNavigation toggles={TOGGLES} defaultValue={DEFAULT_TOGGLE} />;
+  });

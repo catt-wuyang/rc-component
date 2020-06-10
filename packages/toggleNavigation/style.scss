@@ -1,10 +1,13 @@
+$black3: rgba(0, 0, 0, 0.03);
 $black50: rgba(0, 0, 0, 0.5);
 $black90: rgba(0, 0, 0, 0.9);
+$white: #fff;
 
 .toggle-navigation {
   display: inline-block;
   position: relative;
   z-index: 1;
+  background: $black3;
   border-radius: 14px;
 
   .toggle-navigation-item {
@@ -16,7 +19,7 @@ $black90: rgba(0, 0, 0, 0.9);
     padding: 0 12px;
 
     &.active {
-      font-weight: 500;
+      font-weight: bold;
       color: $black90;
     }
   }
@@ -31,7 +34,7 @@ $black90: rgba(0, 0, 0, 0.9);
     z-index: -1;
     height: 28px;
     line-height: 28px;
-    background: #fafafa;
+    background: $white;
     border-radius: 14px;
     box-sizing: border-box;
     transition: all 0.2s linear;
