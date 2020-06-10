@@ -8,7 +8,8 @@
   "module": "./es/index",
   "types": "./types",
   "scripts": {
-    "dev": "NODE_ENV=dev start-storybook -p 2046 -c .storybook"
+    "dev": "NODE_ENV=dev start-storybook -p 2046 -c .storybook",
+    "storybook-build": "NODE_ENV=production build-storybook -o docs"
   },
   "dependencies": {
     "classnames": "^2.2.6",
