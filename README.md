@@ -1,2 +1,2 @@
 # octo
-rc component library accumulated in work
+react components library accumulated in work
