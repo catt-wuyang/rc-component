@@ -26,12 +26,6 @@ module.exports = ({ config }) => {
       },
     ],
   });
-  // config.plugins.push(
-  //   new CleanWebpackPlugin({
-  //     protectWebpackAssets: false,
-  //     cleanAfterEveryBuildPatterns: ["*.LICENSE.txt"],
-  //   })
-  // );
   config.resolve.extensions.push(".ts", ".tsx");
   return config;
 };

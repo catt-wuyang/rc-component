@@ -14,13 +14,13 @@ const TOGGLES = [
   },
   {
     value: "music",
-    text: "乐",
+    text: "音",
   },
 ];
 
 const DEFAULT_TOGGLE = {
   value: "movie",
-  text: "电影",
+  text: "影",
 };
 
 storiesOf("ToggleNavigation", module)
