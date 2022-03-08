@@ -1,3 +1,5 @@
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
 module.exports = ({ config }) => {
   config.module.rules.push({
     test: /\.(ts|tsx)$/,
@@ -9,8 +11,27 @@ module.exports = ({ config }) => {
   });
   config.module.rules.push({
     test: /\.scss$/,
-    use: ["style-loader", "css-loader", "sass-loader"],
+    use: [
+      {
+        loader: "style-loader",
+      },
+      {
+        loader: "css-loader",
+      },
+      {
+        loader: "sass-loader",
+        options: {
+          implementation: require("sass"),
+        },
+      },
+    ],
   });
+  // config.plugins.push(
+  //   new CleanWebpackPlugin({
+  //     protectWebpackAssets: false,
+  //     cleanAfterEveryBuildPatterns: ["*.LICENSE.txt"],
+  //   })
+  // );
   config.resolve.extensions.push(".ts", ".tsx");
   return config;
 };

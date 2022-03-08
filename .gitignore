@@ -82,6 +82,27 @@ typings/
 .nuxt
 dist
 
+#
+# Ignore unused language chunks and maps
+#
+react-syntax-highlighter_languages_highlight_*.*.bundle.js
+react-syntax-highlighter_languages_highlight_*.*.bundle.js.map
+vendors~react-syntax-highlighter_languages_highlight_*.*.bundle.js
+vendors~react-syntax-highlighter_languages_highlight_*.*.bundle.js.map
+
+#
+# Unignore all the chunks storybook actually uses for MDX stories.
+#
+!react-syntax-highlighter_languages_highlight_jsx.*.bundle.js.map
+!react-syntax-highlighter_languages_highlight_bash.*.bundle.js.map
+!react-syntax-highlighter_languages_highlight_css.*.bundle.js.map
+!react-syntax-highlighter_languages_highlight_html.*.bundle.js.map
+!react-syntax-highlighter_languages_highlight_tsx.*.bundle.js.map
+!react-syntax-highlighter_languages_highlight_typescript.*.bundle.js.map
+
+# storybook docs build LICENSE.txt
+*.LICENSE.txt
+
 # Gatsby files
 .cache/
 # Comment in the public line in if your project uses Gatsby and *not* Next.js

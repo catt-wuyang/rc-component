@@ -10,11 +10,11 @@ const TOGGLES = [
   },
   {
     value: "movie",
-    text: "电影",
+    text: "影",
   },
   {
     value: "music",
-    text: "音乐",
+    text: "乐",
   },
 ];
 
