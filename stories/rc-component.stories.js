@@ -18,15 +18,18 @@ const TOGGLES = [
   },
 ];
 
-const DEFAULT_TOGGLE = {
-  value: "movie",
-  text: "影",
-};
+const DEFAULT_TOGGLE = "movie";
 
 storiesOf("ToggleNavigation", module)
   .add("default", () => {
     return <ToggleNavigation toggles={TOGGLES} onChange={action("onChange")} />;
   })
   .add("defaultValue", () => {
-    return <ToggleNavigation toggles={TOGGLES} defaultValue={DEFAULT_TOGGLE} />;
+    return (
+      <ToggleNavigation
+        toggles={TOGGLES}
+        defaultToggleItem={DEFAULT_TOGGLE}
+        onChange={action("onChange")}
+      />
+    );
   });

@@ -1,6 +1,5 @@
 import "./style.scss";
-
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classnames from "classnames";
 
 interface ToggleItem {
@@ -8,105 +7,69 @@ interface ToggleItem {
   text: string;
 }
 
-export interface IProps {
+interface IProps {
   toggles: Array<ToggleItem>;
-  defaultValue?: string;
+  defaultToggleItem?: string;
   onChange?: (current: any) => void;
 }
 
-export interface IState {
-  current: any;
-  currentIndex: number;
-  slideWidth?: number;
-  slideLeft?: number;
+interface IStyle {
+  width?: string;
+  left?: string;
 }
 
-class ToggleNavigation extends React.Component<IProps, IState> {
-  static defaultProps: IProps = {
-    toggles: [],
-    defaultValue: "",
-  };
+const ToggleNavigation: React.FC<IProps> = (props: IProps) => {
+  const { toggles, defaultToggleItem, onChange } = props;
 
-  private curRefs;
+  const defaultCurIndex: number = defaultToggleItem
+    ? toggles.findIndex((item) => item.value === defaultToggleItem)
+    : 0;
 
-  constructor(props) {
-    super(props);
-    this.curRefs = Array.from(this.props.toggles, () => React.createRef());
+  const [currentIndex, setCurrentIndex] = useState(defaultCurIndex);
+  const [slideStyle, setSlideStyle] = useState<IStyle>({});
 
-    const _defaultValue = props.defaultValue
-      ? props.defaultValue.value
-      : props.toggles[0].value;
+  const toggleItemRef = useRef<any>(toggles.map(() => React.createRef()));
 
-    const current = props.toggles.find((item) => item.value === _defaultValue);
-    const currentIndex = props.toggles.findIndex(
-      (item) => item.value === _defaultValue
-    );
+  useEffect(() => {
+    const refWidths = toggleItemRef.current.map((ref) => ref.offsetWidth);
+    const refLefts = refWidths.map((width) => width * currentIndex);
+    setSlidePos(refWidths[currentIndex], refLefts[currentIndex]);
+  }, [currentIndex]);
 
-    this.state = {
-      current: current,
-      currentIndex,
-    };
-  }
-
-  componentDidMount() {
-    // when to use ref * https://stackoverflow.com/questions/55248483/react-ref-current-is-null?answertab=active#tab-top
-    this.setSlidePos();
-  }
-
-  setSlidePos = () => {
-    const { currentIndex } = this.state;
-    const curEl = this.curRefs[currentIndex];
-    this.setState({
-      slideWidth: curEl.offsetWidth,
-      slideLeft: curEl.offsetLeft,
+  function setSlidePos(width: number, left: number) {
+    setSlideStyle({
+      width: `${width}px`,
+      left: `${left}px`,
     });
-  };
-
-  toggleHandle = (value: string, index: number) => {
-    const { toggles, onChange } = this.props;
-    const _current = toggles.find((item) => item.value === value);
-    this.setState(
-      {
-        current: _current,
-        currentIndex: index,
-      },
-      this.setSlidePos
-    );
-    onChange && onChange(_current);
-  };
-
-  render() {
-    const { toggles } = this.props;
-    const { current, slideWidth, slideLeft } = this.state;
-
-    if (!toggles || !toggles.length) {
-      return null;
-    }
-
-    return (
-      <div className="toggle-navigation">
-        {toggles.map((item, index) => {
-          let itemCls = classnames("toggle-navigation-item", {
-            active: item.value === current.value,
-          });
-          return (
-            <span
-              ref={(el) => (this.curRefs[index] = el)}
-              className={itemCls}
-              key={`_toggle_navigation_item_${index}`}
-              onClick={this.toggleHandle.bind(this, item.value, index)}
-            >
-              {item.text}
-            </span>
-          );
-        })}
-        <span
-          className="toggle-navigation-slide"
-          style={{ width: slideWidth, left: `${slideLeft}px` }}
-        ></span>
-      </div>
-    );
   }
-}
+
+  function toggleHandle(index: number) {
+    setCurrentIndex(index);
+    const currentToggle = toggles.find((_, i) => i === index);
+    onChange && onChange(currentToggle);
+  }
+
+  return (
+    <div className="toggle-navigation">
+      {toggles.map((item, index) => {
+        let itemCls = classnames("toggle-navigation-item", {
+          active: index === currentIndex,
+        });
+
+        return (
+          <span
+            ref={(el) => (toggleItemRef.current[index] = el)}
+            className={itemCls}
+            key={`_toggle_navigation_item_${index}`}
+            onClick={() => toggleHandle(index)}
+          >
+            {item.text}
+          </span>
+        );
+      })}
+      <span className="toggle-navigation-slide" style={slideStyle}></span>
+    </div>
+  );
+};
 
 export default ToggleNavigation;
