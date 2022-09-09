@@ -14,8 +14,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "typescript": "^4.8.2"
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^5.3.19",
@@ -27,13 +26,14 @@
     "@types/react-dom": "^16.9.8",
     "babel-loader": "^8.1.0",
     "clean-webpack-plugin": "^4.0.0",
-    "component-source": "^0.0.1",
     "css-loader": "^3.5.3",
     "eslint": "^7.2.0",
     "postcss-loader": "^3.0.0",
     "sass": "^1.49.9",
     "sass-loader": "8.0.2",
     "style-loader": "^1.2.1",
-    "ts-loader": "^7.0.5"
+    "ts-loader": "^8.2.0",
+    "typescript": "^4.7.4",
+    "webpack": "4.3.3"
   }
 }

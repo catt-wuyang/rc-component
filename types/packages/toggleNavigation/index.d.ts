@@ -4,24 +4,10 @@ interface ToggleItem {
     value: string;
     text: string;
 }
-export interface IProps {
+interface IProps {
     toggles: Array<ToggleItem>;
-    defaultValue?: string;
+    defaultToggleItem?: string;
     onChange?: (current: any) => void;
 }
-export interface IState {
-    current: any;
-    currentIndex: number;
-    slideWidth?: number;
-    slideLeft?: number;
-}
-declare class ToggleNavigation extends React.Component<IProps, IState> {
-    static defaultProps: IProps;
-    private curRefs;
-    constructor(props: any);
-    componentDidMount(): void;
-    setSlidePos: () => void;
-    toggleHandle: (value: string, index: number) => void;
-    render(): JSX.Element | null;
-}
+declare const ToggleNavigation: React.FC<IProps>;
 export default ToggleNavigation;
