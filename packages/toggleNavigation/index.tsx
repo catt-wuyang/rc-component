@@ -72,4 +72,9 @@ const ToggleNavigation: React.FC<IProps> = (props: IProps) => {
   );
 };
 
+ToggleNavigation.defaultProps = {
+  toggles: [],
+  onChange: () => {},
+};
+
 export default ToggleNavigation;

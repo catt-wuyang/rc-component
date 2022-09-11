@@ -1,0 +1,37 @@
+@import "../common/common.scss";
+
+.text-input-component {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+}
+
+.text-input {
+  width: 420px;
+  height: 32px;
+  line-height: 30px;
+  color: $black;
+  font-size: 12px;
+  border: 1px solid $grey-light;
+  background-color: $white;
+  border-radius: 2px;
+  padding-left: 15px;
+  box-sizing: border-box;
+
+  &.done {
+    border-color: $blue;
+  }
+
+  &.error {
+    border-color: $red;
+  }
+
+  &::-webkit-contacts-auto-fill-button {
+    visibility: hidden;
+    display: none !important;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+  }
+}

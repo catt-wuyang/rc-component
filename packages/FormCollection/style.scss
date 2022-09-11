@@ -1,0 +1,26 @@
+@import "../common/common.scss";
+
+.row {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.field {
+  display: inline-block;
+  width: 56px;
+  font-size: 14px;
+  line-height: 1;
+  color: $grey-light;
+  text-align: right;
+  margin-right: 20px;
+  margin-top: 9px;
+  vertical-align: top;
+}
+
+.col {
+  width: 460px;
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 1;
+}
