@@ -13,6 +13,8 @@ export const TOGGLE_NAVS = [
   },
 ];
 
+export const DEFAULT_TOGGLE_NAV = "movie";
+
 export const MAIN_TYPES = [
   {
     text: "贾樟柯",

@@ -1,23 +1,27 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { TOGGLE_NAVS, MAIN_TYPES, SUB_TYPES } from "./rc-data";
+import {
+  TOGGLE_NAVS,
+  DEFAULT_TOGGLE_NAV,
+  MAIN_TYPES,
+  SUB_TYPES,
+} from "./rc-data";
 import ToggleNavigation from "../packages/ToggleNavigation";
 import TextInput from "../packages/TextInput";
 import Select from "../packages/Select";
-import FormCollection from "../packages/FormCollection";
-
-const DEFAULT_TOGGLE = "movie";
 
 storiesOf("ToggleNavigation", module)
   .add("default", () => {
-    return <ToggleNavigation toggles={TOGGLES} onChange={action("onChange")} />;
+    return (
+      <ToggleNavigation toggles={TOGGLE_NAVS} onChange={action("onChange")} />
+    );
   })
   .add("defaultValue", () => {
     return (
       <ToggleNavigation
         toggles={TOGGLE_NAVS}
-        defaultToggleItem={DEFAULT_TOGGLE}
+        defaultToggleItem={DEFAULT_TOGGLE_NAV}
         onChange={action("onChange")}
       />
     );
@@ -41,8 +45,4 @@ storiesOf("Select", module).add("default", () => {
       <Select options={SUB_TYPES} disabled={true} />
     </div>
   );
-});
-
-storiesOf("Form", module).add("default", () => {
-  return <FormCollection />;
 });
