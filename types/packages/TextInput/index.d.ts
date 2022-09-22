@@ -1,6 +1,7 @@
 import "./style.scss";
 import React from "react";
 interface IProps {
+    prefixCls?: string;
     defaultValue?: string;
     placeholder?: string;
     isRequired?: boolean;

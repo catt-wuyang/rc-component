@@ -1,5 +1,5 @@
 import "./style.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 
 interface IProps {
@@ -16,11 +16,16 @@ const NumberPicker: React.FC<IProps> = ({
   prefixCls = "rc",
   disabled = false,
   number = 1,
-  min = 0,
+  min = 1,
   max = 1000,
   onChange,
 }) => {
-  const [value, setValue] = useState(number);
+  const defaultNumber = Math.min(number, max);
+  const [value, setValue] = useState(defaultNumber);
+
+  useEffect(() => {
+    onChange && onChange(value);
+  }, [value]);
 
   const cls = classnames(`${prefixCls}-number-picker`, "rc-number-picker", {
     disabled: disabled,
@@ -35,33 +40,33 @@ const NumberPicker: React.FC<IProps> = ({
   );
 
   function renderMainNumber() {
-    const displayNumber = Math.min(number, max);
     return <span className="number-picker-content">{value}</span>;
   }
 
   function renderSubtractionButton() {
-    const clickDisabled = disabled || value <= min || !value;
+    const disabledStatus = disabled || value <= min;
+    const classes = classnames("number-picker-button", "subtract", {
+      disabled: disabledStatus,
+    });
     return (
       <i
-        className="number-picker-button subtract"
-        onClick={clickDisabled ? () => false : () => clickHandle(value - 1)}
+        className={classes}
+        onClick={disabledStatus ? () => {} : () => setValue(value - 1)}
       ></i>
     );
   }
 
   function renderPlusButton() {
-    const clickDisabled = disabled || !value || value >= max;
+    const disabledStatus = disabled || value >= max;
+    const classes = classnames("number-picker-button", "plus", {
+      disabled: disabledStatus,
+    });
     return (
       <i
-        className="number-picker-button plus"
-        onClick={clickDisabled ? () => false : () => clickHandle(value - 1)}
+        className={classes}
+        onClick={disabledStatus ? () => {} : () => setValue(value + 1)}
       ></i>
     );
-  }
-
-  function clickHandle(n: number) {
-    if (n < min || n > max) return false;
-    onChange && onChange(n);
   }
 };
 

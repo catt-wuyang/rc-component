@@ -5,6 +5,7 @@ interface ToggleItem {
     text: string;
 }
 interface IProps {
+    prefixCls?: string;
     toggles: Array<ToggleItem>;
     defaultToggleItem?: string;
     onChange?: (current: any) => void;

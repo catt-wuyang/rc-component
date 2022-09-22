@@ -79,7 +79,7 @@ storiesOf("Input", module).add("default", () => {
 });
 
 storiesOf("NumberPicker", module).add("default", () => {
-  return <NumberPicker />;
+  return <NumberPicker onChange={action("change")} />;
 });
 
 storiesOf("Button", module).add("default", () => {
