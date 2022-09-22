@@ -10,7 +10,7 @@ module.exports = ({ config }) => {
     ],
   });
   config.module.rules.push({
-    test: /\.scss$/,
+    test: /\.(css|scss)$/,
     use: [
       {
         loader: "style-loader",

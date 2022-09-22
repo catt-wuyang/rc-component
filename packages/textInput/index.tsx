@@ -1,16 +1,22 @@
 import "./style.scss";
 import React, { useRef } from "react";
+import classnames from "classnames";
 
 interface IProps {
+  prefixCls?: string;
   defaultValue?: string;
   placeholder?: string;
   isRequired?: boolean;
   onChange?: (value: string) => void;
 }
 
-const TextInput: React.FC<IProps> = function (props: IProps) {
-  const { defaultValue, placeholder, isRequired, onChange } = props;
-
+const TextInput: React.FC<IProps> = function ({
+  prefixCls = "rc",
+  placeholder = "input text",
+  isRequired = false,
+  defaultValue,
+  onChange,
+}) {
   const inputRef = useRef(null);
 
   const inputChange = (e) => {
@@ -18,11 +24,13 @@ const TextInput: React.FC<IProps> = function (props: IProps) {
     onChange && onChange(value);
   };
 
+  const compCls = classnames(`${prefixCls}-text-input`, "text-input");
+
   return (
     <div className="text-input-component">
       <input
         type="text"
-        className="text-input"
+        className={compCls}
         ref={inputRef}
         placeholder={placeholder}
         defaultValue={defaultValue}
@@ -31,11 +39,6 @@ const TextInput: React.FC<IProps> = function (props: IProps) {
       />
     </div>
   );
-};
-
-TextInput.defaultProps = {
-  placeholder: "请输入",
-  isRequired: false,
 };
 
 export default TextInput;

@@ -7,9 +7,44 @@ import {
   MAIN_TYPES,
   SUB_TYPES,
 } from "./rc-data";
+
 import ToggleNavigation from "../packages/ToggleNavigation";
 import TextInput from "../packages/TextInput";
+import NumberPicker from "../packages/NumberPicker";
+import Button from "../packages/Button";
 import Select from "../packages/Select";
+import Modal from "../packages/Modal";
+
+class ModalTrigger extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      visible: false,
+    };
+  }
+
+  changeVisible = () => {
+    action("click modal");
+    this.setState({
+      visible: !this.state.visible,
+    });
+  };
+
+  render() {
+    return (
+      <div>
+        <span onClick={this.changeVisible}>Click Me!</span>
+        <Modal
+          isOpen={this.state.visible}
+          onConfirm={this.changeVisible}
+          onCancel={this.changeVisible}
+        >
+          <div>Overlay Content</div>
+        </Modal>
+      </div>
+    );
+  }
+}
 
 storiesOf("ToggleNavigation", module)
   .add("default", () => {
@@ -27,16 +62,43 @@ storiesOf("ToggleNavigation", module)
     );
   });
 
-storiesOf("Input", module)
-  .add("default", () => {
-    return <TextInput />;
-  })
-  .add("defaultValue", () => {
-    return <TextInput defaultValue="rc components" />;
-  })
-  .add("placeholder", () => {
-    return <TextInput placeholder="必填" />;
-  });
+storiesOf("Input", module).add("default", () => {
+  return (
+    <div>
+      <div style={{ marginBottom: "12px" }}>
+        <TextInput />
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <TextInput defaultValue="rc components" />
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <TextInput placeholder="必填" />
+      </div>
+    </div>
+  );
+});
+
+storiesOf("NumberPicker", module).add("default", () => {
+  return <NumberPicker />;
+});
+
+storiesOf("Button", module).add("default", () => {
+  return (
+    <div>
+      <div style={{ marginBottom: "12px" }}>
+        <Button type="action" onClick={() => alert("hi, action button")}>
+          Action Button
+        </Button>
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <Button onClick={() => alert("hi, basic button")}>Basic Button</Button>
+      </div>
+      <div>
+        <Button disabled>Disabled Button</Button>
+      </div>
+    </div>
+  );
+});
 
 storiesOf("Select", module).add("default", () => {
   return (
@@ -45,4 +107,8 @@ storiesOf("Select", module).add("default", () => {
       <Select options={SUB_TYPES} disabled={true} />
     </div>
   );
+});
+
+storiesOf("Modal", module).add("default", () => {
+  return <ModalTrigger />;
 });

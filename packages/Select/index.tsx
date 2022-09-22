@@ -16,10 +16,14 @@ interface IProps {
   onChange?: (value: number | string) => void;
 }
 
-const Select: React.FC<IProps> = function (props: IProps) {
-  const { prefixCls, disabled, options, defaultValue, placeholder, onChange } =
-    props;
-
+const Select: React.FC<IProps> = ({
+  prefixCls = "rc",
+  placeholder = "select a option",
+  disabled = false,
+  options = [],
+  defaultValue,
+  onChange,
+}) => {
   const [isShowOption, setIsShowOption] = useState(false);
   const [selected, setSelected] = useState<ISelected | undefined>(undefined);
 
@@ -92,14 +96,6 @@ const Select: React.FC<IProps> = function (props: IProps) {
       </ul>
     </div>
   );
-};
-
-Select.defaultProps = {
-  prefixCls: "rc",
-  placeholder: "请选择",
-  disabled: false,
-  options: [],
-  onChange: () => {},
 };
 
 export default Select;

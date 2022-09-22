@@ -8,6 +8,7 @@ interface ToggleItem {
 }
 
 interface IProps {
+  prefixCls?: string;
   toggles: Array<ToggleItem>;
   defaultToggleItem?: string;
   onChange?: (current: any) => void;
@@ -18,9 +19,12 @@ interface IStyle {
   left?: string;
 }
 
-const ToggleNavigation: React.FC<IProps> = (props: IProps) => {
-  const { toggles, defaultToggleItem, onChange } = props;
-
+const ToggleNavigation: React.FC<IProps> = ({
+  prefixCls = "rc",
+  toggles = [],
+  defaultToggleItem,
+  onChange,
+}) => {
   const defaultCurIndex: number = defaultToggleItem
     ? toggles.findIndex((item) => item.value === defaultToggleItem)
     : 0;
@@ -49,8 +53,13 @@ const ToggleNavigation: React.FC<IProps> = (props: IProps) => {
     onChange && onChange(currentToggle);
   }
 
+  const compCls = classnames(
+    `${prefixCls}-toggle-navigation`,
+    "toggle-navigation"
+  );
+
   return (
-    <div className="toggle-navigation">
+    <div className={compCls}>
       {toggles.map((item, index) => {
         let itemCls = classnames("toggle-navigation-item", {
           active: index === currentIndex,
@@ -70,11 +79,6 @@ const ToggleNavigation: React.FC<IProps> = (props: IProps) => {
       <span className="toggle-navigation-slide" style={slideStyle}></span>
     </div>
   );
-};
-
-ToggleNavigation.defaultProps = {
-  toggles: [],
-  onChange: () => {},
 };
 
 export default ToggleNavigation;

@@ -1,0 +1,31 @@
+@import "../common/common.scss";
+
+.rc-button {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  height: 32px;
+  line-height: 32px;
+  color: $black;
+  background-color: $white;
+  padding: 0 16px;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  user-select: none;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &.action {
+    color: $white;
+    background-color: $green;
+    border-color: $green;
+  }
+
+  &.disabled {
+    color: rgba(0, 0, 0, 0.4);
+    background-color: #f5f5f5;
+    border-color: #d9d9d9;
+    cursor: not-allowed;
+  }
+}
