@@ -7,7 +7,7 @@ interface ISelected {
 interface IProps {
     prefixCls?: string;
     disabled?: boolean;
-    options: Array<ISelected>;
+    options: ISelected[];
     defaultValue?: number | string;
     placeholder?: string;
     onChange?: (value: number | string) => void;

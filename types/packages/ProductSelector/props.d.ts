@@ -1,12 +1,12 @@
 export interface IProduct {
-    id?: string;
-    title?: string;
-    can_buy?: boolean;
-    stock?: number;
-    skus: Array<ISkuItem>;
+    id: string;
+    title: string;
+    can_buy: boolean;
+    stock: number;
+    skus: ISkuItem[];
     sku_props: {
-        color: Array<string>;
-        size: Array<string>;
+        color: string[];
+        size: string[];
         color_name: string;
         size_name: string;
     };

@@ -9,7 +9,7 @@ interface ToggleItem {
 
 interface IProps {
   prefixCls?: string;
-  toggles: Array<ToggleItem>;
+  toggles: ToggleItem[];
   defaultToggleItem?: string;
   onChange?: (current: any) => void;
 }

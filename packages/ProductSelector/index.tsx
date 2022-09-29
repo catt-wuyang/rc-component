@@ -4,12 +4,11 @@ import uniq from "lodash/uniq";
 import filter from "lodash/filter";
 import classnames from "classnames";
 import classNamesPrefix from "../../utils/classname-prefix";
-import { isEmptyObj } from "../common/utils";
 import { IProduct, ISkuItem, ISelectedProps } from "./props";
 
 interface IProps {
   prefixCls?: string;
-  products?: Array<IProduct>;
+  products?: IProduct[];
   onChange?: (data: any) => void;
 }
 
@@ -20,8 +19,8 @@ const ProductSelector: React.FC<IProps> = ({
   products = [],
   onChange,
 }) => {
-  const [selectedProduct, setSelectedProduct] = useState<IProduct | any>({});
-  const [selectedProps, setSelectedProps] = useState<ISelectedProps>({});
+  const [selectedProduct, setSelectedProduct] = useState<IProduct>();
+  const [selectedProps, setSelectedProps] = useState<ISelectedProps>();
   const [selectedSku, setSelectedSku] = useState<ISkuItem[]>([]);
 
   useEffect(() => {
@@ -78,15 +77,11 @@ const ProductSelector: React.FC<IProps> = ({
     </div>
   );
 
-  function renderProps() {
+  function renderProps(): JSX.Element | null {
     if (!selectedProduct) return null;
 
     const { skus, sku_props } = selectedProduct;
-    if (!skus || !sku_props) return null;
-
     const { color, size } = sku_props;
-
-    if (!color || !size) return;
 
     let colors = skus.map((s) => s.color).filter((c) => !!c);
     let sizes = skus.map((s) => s.size).filter((c) => !!c);
@@ -105,11 +100,13 @@ const ProductSelector: React.FC<IProps> = ({
   function renderPropsItem(
     props: Array<string | undefined>,
     type: "color" | "size"
-  ) {
+  ): JSX.Element | null {
     if (!props.length) return null;
 
     let query = { ...selectedProps };
     delete query[type];
+
+    if (!selectedProduct) return null;
 
     const { skus, sku_props } = selectedProduct;
     if (!sku_props || !skus) return null;
@@ -132,7 +129,7 @@ const ProductSelector: React.FC<IProps> = ({
               key={`_${c}_${idx}`}
               className={classnames(cls("item"), {
                 disabled: disabled,
-                selected: selectedProps[type] === c,
+                selected: selectedProps?.[type] === c,
               })}
               onClick={!disabled ? () => onSelectProps(type, c) : () => false}
             >
@@ -144,7 +141,7 @@ const ProductSelector: React.FC<IProps> = ({
     );
   }
 
-  function onSelectProduct(pid?: string) {
+  function onSelectProduct(pid?: string): void {
     const isSelected = selectedProduct && selectedProduct.id === pid;
     if (isSelected) return;
 
@@ -158,7 +155,7 @@ const ProductSelector: React.FC<IProps> = ({
     if (skus.length === 1) {
       const { color, size } = skus[0];
       newSelectedProps = { color, size };
-      const matchedSku = filter(skus, newSelectedProps) as Array<ISkuItem>;
+      const matchedSku = filter(skus, newSelectedProps);
 
       setSelectedProps(newSelectedProps);
       setSelectedSku(matchedSku);
@@ -169,15 +166,17 @@ const ProductSelector: React.FC<IProps> = ({
     setSelectedProduct(matchedProduct);
   }
 
-  function onSelectProps(type: "color" | "size", value?: string) {
-    const isSelected = selectedProps[type] === value;
+  function onSelectProps(type: "color" | "size", value?: string): void {
+    const isSelected = selectedProps?.[type] === value;
     if (isSelected) return;
 
     let newSelectedProps = {};
     newSelectedProps[type] = value;
 
+    if (!selectedProduct) return;
+
     const { skus } = selectedProduct;
-    let matchedSkus = filter(skus, newSelectedProps) as Array<ISkuItem>;
+    let matchedSkus = filter(skus, newSelectedProps);
 
     if (matchedSkus.length === 1) {
       const selectedSku = matchedSkus[0];
@@ -189,16 +188,15 @@ const ProductSelector: React.FC<IProps> = ({
     setSelectedSku(matchedSkus);
   }
 
-  function getPrices() {
+  function getPrices(): string {
     let displayPrice = "";
 
     if (selectedSku && selectedSku.length) {
       displayPrice = selectedSku[0].price;
     }
 
-    if (!isEmptyObj(selectedProduct) && !selectedSku.length) {
+    if (selectedProduct && !selectedSku.length) {
       const { skus } = selectedProduct;
-      if (!skus) return;
       const _skus = skus.sort((a, b) => {
         return parseFloat(a.price) - parseFloat(b.price);
       });
@@ -223,8 +221,8 @@ const ProductSelector: React.FC<IProps> = ({
     return displayPrice;
   }
 
-  function getTips() {
-    if (isEmptyObj(selectedProduct)) {
+  function getTips(): string {
+    if (!selectedProduct) {
       return `请选择商品`;
     }
 
@@ -271,19 +269,11 @@ const ProductSelector: React.FC<IProps> = ({
 
     return selectedSku && selectedSku.length === 1
       ? `已选择 ${displayProduct} ${displayProps}`
-      : !!selectedProps.color && _sizeName
+      : !!selectedProps?.color && _sizeName
       ? `请选择${_sizeName}`
-      : !!selectedProps.size && _colorName
+      : !!selectedProps?.size && _colorName
       ? `请选择${_colorName}`
       : `请选择${propNames}`;
-  }
-
-  function getSalePropsName(type: "color" | "size") {
-    const name = `${type}_name` as "color_name" | "size_name";
-
-    if (selectedProduct && selectedProduct.sku_props) {
-      return selectedProduct.sku_props[name];
-    }
   }
 };
 
