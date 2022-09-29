@@ -6,6 +6,8 @@ import {
   DEFAULT_TOGGLE_NAV,
   MAIN_TYPES,
   SUB_TYPES,
+  PRODUCTS,
+  PHOTO_URL,
 } from "./rc-data";
 
 import ToggleNavigation from "../packages/ToggleNavigation";
@@ -14,6 +16,8 @@ import NumberPicker from "../packages/NumberPicker";
 import Button from "../packages/Button";
 import Select from "../packages/Select";
 import Modal from "../packages/Modal";
+import Photo from "../packages/Photo";
+import ProductSelector from "../packages/ProductSelector";
 
 class ModalTrigger extends React.Component {
   constructor(props) {
@@ -111,4 +115,31 @@ storiesOf("Select", module).add("default", () => {
 
 storiesOf("Modal", module).add("default", () => {
   return <ModalTrigger />;
+});
+
+storiesOf("Photo", module).add("default", () => {
+  return (
+    <div>
+      <div style={{ marginBottom: "12px" }}>
+        <Photo url={PHOTO_URL} />
+      </div>
+
+      <div style={{ marginBottom: "12px" }}>
+        <Photo url={PHOTO_URL} width={160} />
+      </div>
+
+      <div style={{ marginBottom: "12px" }}>
+        <Photo url={PHOTO_URL} circle={true} />
+      </div>
+    </div>
+  );
+});
+
+storiesOf("ProductSelector", module).add("default", () => {
+  return (
+    <ProductSelector
+      products={PRODUCTS}
+      onChange={action("product-selector")}
+    />
+  );
 });

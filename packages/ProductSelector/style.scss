@@ -1,0 +1,80 @@
+@import "../common/common.scss";
+
+.rc-product-selector {
+  padding: 24px;
+}
+
+.product-selector-display {
+  margin-bottom: 42px;
+  user-select: none;
+
+  .product-display-info {
+    display: inline-block;
+    font-size: 12px;
+    color: $black50;
+    background-color: $bg-color;
+    padding: 6px 12px;
+    border-radius: 4px;
+  }
+
+  .product-display-price {
+    display: inline-block;
+    margin-left: 12px;
+    color: $red;
+    font-weight: 500;
+    vertical-align: middle;
+
+    em {
+      font-style: normal;
+      font-size: 12px;
+      transform: scale(0.8);
+      margin-right: 2px;
+    }
+  }
+}
+
+.product-selector-block {
+  margin-bottom: 12px;
+}
+
+.product-selector-widen-block {
+  margin-bottom: 24px;
+}
+
+.product-selector-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: $black;
+  line-height: 18px;
+}
+
+.product-selector-item {
+  display: inline-block;
+  min-width: 60px;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: $black;
+  background-color: $bg-color;
+  border: 1px solid $bg-color;
+  border-radius: 4px;
+  box-sizing: border-box;
+  text-align: center;
+  margin-top: 12px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  user-select: none;
+
+  &.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  &.selected {
+    color: $red;
+    background-color: $red-light;
+    border-color: $red;
+  }
+}
