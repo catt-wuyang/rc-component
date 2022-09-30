@@ -15,6 +15,7 @@ import TextInput from "../packages/TextInput";
 import NumberPicker from "../packages/NumberPicker";
 import Button from "../packages/Button";
 import Select from "../packages/Select";
+import Checkbox, { CheckboxGroup } from "../packages/Checkbox";
 import Modal from "../packages/Modal";
 import Photo from "../packages/Photo";
 import ProductSelector from "../packages/ProductSelector";
@@ -99,6 +100,76 @@ storiesOf("Button", module).add("default", () => {
       </div>
       <div>
         <Button disabled>Disabled Button</Button>
+      </div>
+    </div>
+  );
+});
+
+storiesOf("CheckBox", module).add("default", () => {
+  return (
+    <div>
+      <div style={{ marginBottom: "12px" }}>
+        <Checkbox>Checkbox</Checkbox>
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <Checkbox checked>Checkbox</Checkbox>
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <Checkbox disabled>Checkbox</Checkbox>
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <Checkbox checked disabled>
+          Checkbox
+        </Checkbox>
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <CheckboxGroup options={["A", "B", "C", "D"]} />
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <CheckboxGroup
+          defaultValue={["B", "D"]}
+          options={[
+            {
+              label: "A",
+              value: "A",
+            },
+            {
+              label: "B",
+              value: "B",
+            },
+            {
+              label: "C",
+              value: "C",
+            },
+            {
+              label: "D",
+              value: "D",
+            },
+          ]}
+        />
+      </div>
+      <div style={{ marginBottom: "12px" }}>
+        <CheckboxGroup
+          disabled
+          options={[
+            {
+              label: "A",
+              value: "A",
+            },
+            {
+              label: "B",
+              value: "B",
+            },
+            {
+              label: "C",
+              value: "C",
+            },
+            {
+              label: "D",
+              value: "D",
+            },
+          ]}
+        />
       </div>
     </div>
   );
