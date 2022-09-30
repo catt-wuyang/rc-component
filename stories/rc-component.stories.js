@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import {
@@ -105,75 +105,123 @@ storiesOf("Button", module).add("default", () => {
   );
 });
 
-storiesOf("CheckBox", module).add("default", () => {
+const CheckboxControl = () => {
+  const [checked, setChecked] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+
+  const onChange = (e) => {
+    console.log(e);
+  };
+
+  const toggleCheck = () => {
+    setChecked(!checked);
+  };
+
+  const toggleEnable = () => {
+    setDisabled(!disabled);
+  };
+
   return (
-    <div>
-      <div style={{ marginBottom: "12px" }}>
-        <Checkbox>Checkbox</Checkbox>
-      </div>
-      <div style={{ marginBottom: "12px" }}>
-        <Checkbox checked>Checkbox</Checkbox>
-      </div>
-      <div style={{ marginBottom: "12px" }}>
-        <Checkbox disabled>Checkbox</Checkbox>
-      </div>
-      <div style={{ marginBottom: "12px" }}>
-        <Checkbox checked disabled>
-          Checkbox
-        </Checkbox>
-      </div>
-      <div style={{ marginBottom: "12px" }}>
-        <CheckboxGroup options={["A", "B", "C", "D"]} />
-      </div>
-      <div style={{ marginBottom: "12px" }}>
-        <CheckboxGroup
-          defaultValue={["B", "D"]}
-          options={[
-            {
-              label: "A",
-              value: "A",
-            },
-            {
-              label: "B",
-              value: "B",
-            },
-            {
-              label: "C",
-              value: "C",
-            },
-            {
-              label: "D",
-              value: "D",
-            },
-          ]}
-        />
-      </div>
-      <div style={{ marginBottom: "12px" }}>
-        <CheckboxGroup
-          disabled
-          options={[
-            {
-              label: "A",
-              value: "A",
-            },
-            {
-              label: "B",
-              value: "B",
-            },
-            {
-              label: "C",
-              value: "C",
-            },
-            {
-              label: "D",
-              value: "D",
-            },
-          ]}
-        />
+    <div style={{ padding: "24px" }}>
+      <Checkbox
+        checked={checked}
+        disabled={disabled}
+        control
+        onChange={onChange}
+      >
+        Control Checkbox
+      </Checkbox>
+      <div style={{ marginBottom: "12px" }}></div>
+      <div>
+        <Button
+          type="action"
+          style={{ marginRight: "12px" }}
+          onClick={toggleCheck}
+        >
+          Check
+        </Button>
+        <Button type="action" onClick={toggleEnable}>
+          Disable
+        </Button>
       </div>
     </div>
   );
-});
+};
+
+storiesOf("CheckBox", module)
+  .add("default", () => {
+    return (
+      <div>
+        <div style={{ marginBottom: "12px" }}>
+          <Checkbox>Checkbox</Checkbox>
+        </div>
+        <div style={{ marginBottom: "12px" }}>
+          <Checkbox checked>Checkbox</Checkbox>
+        </div>
+        <div style={{ marginBottom: "12px" }}>
+          <Checkbox disabled>Checkbox</Checkbox>
+        </div>
+        <div style={{ marginBottom: "12px" }}>
+          <Checkbox checked disabled>
+            Checkbox
+          </Checkbox>
+        </div>
+        <div style={{ marginBottom: "12px" }}></div>
+        <div style={{ marginBottom: "12px" }}>
+          <CheckboxGroup options={["A", "B", "C", "D"]} />
+        </div>
+        <div style={{ marginBottom: "12px" }}>
+          <CheckboxGroup
+            defaultValue={["B", "D"]}
+            options={[
+              {
+                label: "A",
+                value: "A",
+              },
+              {
+                label: "B",
+                value: "B",
+              },
+              {
+                label: "C",
+                value: "C",
+              },
+              {
+                label: "D",
+                value: "D",
+              },
+            ]}
+          />
+        </div>
+        <div style={{ marginBottom: "12px" }}>
+          <CheckboxGroup
+            disabled
+            options={[
+              {
+                label: "A",
+                value: "A",
+              },
+              {
+                label: "B",
+                value: "B",
+              },
+              {
+                label: "C",
+                value: "C",
+              },
+              {
+                label: "D",
+                value: "D",
+              },
+            ]}
+          />
+        </div>
+      </div>
+    );
+  })
+  .add("Control", () => {
+    return <CheckboxControl />;
+  });
 
 storiesOf("Select", module).add("default", () => {
   return (

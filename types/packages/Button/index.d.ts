@@ -4,7 +4,8 @@ interface IProps {
     prefixCls?: string;
     type?: "action" | "basic";
     disabled?: boolean;
-    onClick?: () => void;
+    style?: React.CSSProperties;
+    onClick?: any;
 }
 declare const Button: React.FC<IProps>;
 export default Button;

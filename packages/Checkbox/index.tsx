@@ -6,7 +6,10 @@ interface CheckboxProps {
   prefixCls?: string;
   checked?: boolean;
   disabled?: boolean;
-  value?: string | number;
+  name?: string;
+  value?: string | number | boolean;
+  control?: boolean;
+  children?: React.ReactNode;
   onChange?: (checked: boolean) => void;
 }
 
@@ -32,10 +35,12 @@ const Checkbox: React.FC<CheckboxProps> = ({
   prefixCls = "rc",
   checked = false,
   disabled = false,
+  control = false,
   children,
   onChange,
 }) => {
   const [isChecked, setIsChecked] = useState(checked);
+  const [isDisabled, setIsDisabled] = useState(disabled);
 
   useEffect(() => {
     onChange && onChange(isChecked);
@@ -43,8 +48,8 @@ const Checkbox: React.FC<CheckboxProps> = ({
 
   const wrapperCls = classnames(`${prefixCls}-checkbox-wrapper`);
   const checkboxCls = classnames(`${prefixCls}-checkbox`, {
-    "rc-checkbox-checked": isChecked,
-    "rc-checkbox-disabled": disabled,
+    "rc-checkbox-checked": control ? checked : isChecked,
+    "rc-checkbox-disabled": control ? disabled : isDisabled,
   });
 
   return (
@@ -53,7 +58,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         <input
           type="checkbox"
           className="rc-checkbox-input"
-          onChange={!disabled ? onChecked : () => null}
+          onChange={!isDisabled ? onChecked : () => null}
         />
         <span className="rc-checkbox-simulate"></span>
       </span>

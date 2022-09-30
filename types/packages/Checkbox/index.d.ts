@@ -4,7 +4,10 @@ interface CheckboxProps {
     prefixCls?: string;
     checked?: boolean;
     disabled?: boolean;
-    value?: string | number;
+    name?: string;
+    value?: string | number | boolean;
+    control?: boolean;
+    children?: React.ReactNode;
     onChange?: (checked: boolean) => void;
 }
 interface CheckboxOptionType {

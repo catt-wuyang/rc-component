@@ -6,13 +6,15 @@ interface IProps {
   prefixCls?: string;
   type?: "action" | "basic";
   disabled?: boolean;
-  onClick?: () => void;
+  style?: React.CSSProperties;
+  onClick?: any;
 }
 
 const Button: React.FC<IProps> = ({
   prefixCls = "rc",
   disabled = false,
   type = "basic",
+  style,
   children,
   onClick,
 }) => {
@@ -25,7 +27,7 @@ const Button: React.FC<IProps> = ({
     type
   );
   return (
-    <button className={cls} onClick={onClick}>
+    <button className={cls} style={style} onClick={onClick}>
       {children}
     </button>
   );
